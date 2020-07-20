@@ -34,7 +34,7 @@ public class Checkout {
             }
         }
 
-        return totalTax;
+        return Math.round(totalTax * 20) / 20.00;
     }
 
     public double getTotalItemPrice(Item item) {
@@ -66,9 +66,10 @@ public class Checkout {
         double total = 0.00;
 
         for(int i=0; i<cart.getNumItems(); i++) {
-            total += getTotalItemPrice(cart.getItem(i));
+            total += cart.getItem(i).getPrice();
         }
 
+        total += getSalesTax(cart);
         total = Double.parseDouble(df.format(total));
 
         return total;
